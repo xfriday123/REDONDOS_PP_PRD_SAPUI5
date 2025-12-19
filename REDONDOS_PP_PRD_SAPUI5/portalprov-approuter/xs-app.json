@@ -1,0 +1,101 @@
+{
+    "welcomeFile": "/index.html",
+    "logout": {
+        "logoutEndpoint": "/logout",
+        "logoutPage": "/index.html"
+    },
+    "authenticationMethod": "route",
+    "routes": [
+        {
+            "source": "^/cpbl/(.*)$",
+            "target": "/$1",
+            "destination": "Capblsrv"
+        },
+        {
+            "source": "^/cpdb/(.*)$",
+            "target": "/$1",
+            "destination": "Capdbsrv"
+        },
+        {
+            "source": "^/s4h_tc/(.*)$",
+            "target": "/$1",
+            "destination": "SWD_PRD_300_RDOS_TC"
+        },
+        {
+            "source": "^/valToken/(.*)$",
+            "target": "/$1",
+            "destination": "oData_Obtener_Token_SUNAT"
+        },
+        {
+            "source": "^/WEB/(.*)$",
+            "target": "/$1",
+            "destination": "WebSunatService"
+        },
+        {
+            "source": "^/valSunat/(.*)$",
+            "target": "/$1",
+            "destination": "oData_Validar_Factura_SUNAT"
+        },
+        {
+            "source": "^/DocRedondos/(.*)$",
+            "target": "/$1",
+            "destination": "DocumentServiceRedondos"
+        },
+        {
+            "source": "^/METODO/(.*)$",
+            "target": "/$1",
+            "destination": "DocumentMethodPre"
+        },
+        {
+            "source": "^/DOCUMENT2/(.*)$",
+            "target": "/$1",
+            "destination": "DocumentServiceRedondosPRE"
+        },
+        {
+            "source": "^/odataent/odata2.svc/(.*)$",
+            "target": "/$1",
+            "destination": "Capdbsrvrdospp_prd"
+        },
+        {
+            "source": "^/services/userapi/(.*)$",
+            "target": "/$1",
+            "destination": "userapi"
+        },
+        {
+            "source": "^/dms/(.*)$",
+            "target": "/$1",
+            "destination": "DMSrvPRD"
+        },
+        {
+            "source": "^/logout$",
+            "target": "/nsrdosuiportalprov/logout",
+            "service": "html5-apps-repo-rt",
+            "authenticationType": "none"
+        },
+        {
+            "source": "^/logout.html$",
+            "target": "/nsrdosuiportalprov/logout.html",
+            "service": "html5-apps-repo-rt",
+            "authenticationType": "none",
+            "cacheControl": "no-cache, no-store, must-revalidate"
+        },
+        {
+            "source": "^/resources/(.*)$",
+            "target": "/nsrdosuiportalprov/resources/$1",
+            "authenticationType": "none",
+            "destination": "ui5"
+        },
+        {
+            "source": "^/test-resources/(.*)$",
+            "target": "/nsrdosuiportalprov/test-resources/$1",
+            "authenticationType": "none",
+            "destination": "ui5"
+        },
+        {
+            "source": "^(.*)$",
+            "target": "/nsrdosuiportalprov/$1",
+            "service": "html5-apps-repo-rt",
+            "authenticationType": "xsuaa"
+        }
+    ]
+}

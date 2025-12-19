@@ -1,0 +1,30 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout">
+<FlexBox alignItems="Center" justifyContent="SpaceBetween" class="bg_fondo">
+                        <FlexBox alignContent="Center" alignItems="Center" justifyContent="Start">
+								<Image src="../img/smart_provider_logo.png" height="1.6rem" class="sapUiTinyMarginTop"/>
+								<layoutData>
+									<FlexItemData alignSelf="Center" growFactor="1" baseSize="0" backgroundDesign="Solid" />
+								</layoutData>
+							</FlexBox>
+                        <FlexBox alignContent="Center" alignItems="Center"  justifyContent="Center" >
+                            <Image src="../img/logo_naltech_4.png" class="sapUiTinyMarginTop" height="3rem"/>
+                            <layoutData>
+                                <FlexItemData alignSelf="Center" growFactor="1" baseSize="0" backgroundDesign="Solid"/>
+                            </layoutData>
+                        </FlexBox>
+                        
+                        <FlexBox alignContent="Center" alignItems="Center" justifyContent="End">
+                            <MenuButton icon="sap-icon://customer" id="menu_but_panel_title" text="Bienvenido {myParam>/usuarioLogin}" type="Default" class="sapUiTinyMarginEnd">
+                                <layoutData>
+                                    <OverflowToolbarLayoutData priority="NeverOverflow" />
+                                </layoutData>
+                                <Menu>
+                                    <MenuItem text="Cerrar sesión - {myParam>/usuarioLogin}" icon="sap-icon://log" press="onPress_logout" class="sapUiTinyMarginTop"/>  
+                                </Menu>
+                            </MenuButton>
+                            <layoutData>
+                                <FlexItemData alignSelf="Center" growFactor="1" baseSize="0" backgroundDesign="Solid" />
+                            </layoutData>
+                        </FlexBox>
+                    </FlexBox>
+</core:FragmentDefinition>
