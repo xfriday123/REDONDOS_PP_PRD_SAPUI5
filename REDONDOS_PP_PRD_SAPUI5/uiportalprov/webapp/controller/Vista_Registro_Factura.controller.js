@@ -205,7 +205,7 @@ sap.ui.define([
                 $.ajax({
                     type: "GET",
                     async: false,
-                    url: this.varTableURL + "/" + this.varTableT_OC_DET + "?$format=json&$skiptoken=" + this.oGlobalIteracion0 + "&$filter=US_RUC eq '" + varUsuario + "' and EM_RUC eq '" + this.varRucDeLaEmpresa + "' and DE_FLAC ne '" + "x" + "' and DE_FLAC ne '" + "X" + "' and (DE_ANO eq '" + oModel9.getProperty("/oGlobalTipoFechaAnio01") + "' or DE_ANO eq '2024')",
+                    url: this.varTableURL + "/" + this.varTableT_OC_DET + "?$format=json&$skiptoken=" + this.oGlobalIteracion0 + "&$filter=US_RUC eq '" + varUsuario + "' and EM_RUC eq '" + this.varRucDeLaEmpresa + "' and DE_FLAC ne '" + "x" + "' and DE_FLAC ne '" + "X" + "' and (DE_ANO eq '" + oModel9.getProperty("/oGlobalTipoFechaAnio01") + "' or DE_ANO eq '2025')",
                     success: function (response) {
 
                         var oDataHana = response.value;
@@ -733,7 +733,7 @@ sap.ui.define([
                 $.ajax({
                     type: "GET",
                     async: false,
-                    url: this.varTableURL + "/" + this.varTableT_OC_DET + "?$format=json&$skiptoken=" + this.oGlobalIteracion0 + "&$filter=US_RUC eq '" + varUsuario + "' and EM_RUC eq '" + this.varRucDeLaEmpresa + "' and DE_FLAC ne '" + "x" + "' and DE_FLAC ne '" + "X" + "' and (DE_ANO eq '" + oModel9.getProperty("/oGlobalTipoFechaAnio01") + "' or DE_ANO eq '2024')",
+                    url: this.varTableURL + "/" + this.varTableT_OC_DET + "?$format=json&$skiptoken=" + this.oGlobalIteracion0 + "&$filter=US_RUC eq '" + varUsuario + "' and EM_RUC eq '" + this.varRucDeLaEmpresa + "' and DE_FLAC ne '" + "x" + "' and DE_FLAC ne '" + "X" + "' and (DE_ANO eq '" + oModel9.getProperty("/oGlobalTipoFechaAnio01") + "' or DE_ANO eq '2025')",
                     success: function (response) {
 
                         var oDataHana = response.value;
@@ -7190,7 +7190,7 @@ sap.ui.define([
                 $.ajax({
                     type: "GET",
                     async: false,
-                    url: this.varTableURL + "/" + this.varTableT_OC_DET + "?$format=json&$skiptoken=" + this.oGlobalIteracion0 + "&$filter=US_RUC eq '" + varUsuario + "' and EM_RUC eq '" + this.varRucDeLaEmpresa + "' and DE_FLAC ne '" + "x" + "' and DE_FLAC ne '" + "X" + "' and (DE_ANO eq '" + oModel9.getProperty("/oGlobalTipoFechaAnio01") + "' or DE_ANO eq '2024')",
+                    url: this.varTableURL + "/" + this.varTableT_OC_DET + "?$format=json&$skiptoken=" + this.oGlobalIteracion0 + "&$filter=US_RUC eq '" + varUsuario + "' and EM_RUC eq '" + this.varRucDeLaEmpresa + "' and DE_FLAC ne '" + "x" + "' and DE_FLAC ne '" + "X" + "' and (DE_ANO eq '" + oModel9.getProperty("/oGlobalTipoFechaAnio01") + "' or DE_ANO eq '2025')",
                     success: function (response) {
 
                         var oDataHana = response.value;
@@ -7402,7 +7402,7 @@ sap.ui.define([
                 $.ajax({
                     type: "GET",
                     async: false,
-                    url: this.varTableURL + "/" + this.varTableT_OC_DET + "?$format=json&$skiptoken=" + this.oGlobalIteracion0 + "&$filter=US_RUC eq '" + varUsuario + "' and EM_RUC eq '" + this.varRucDeLaEmpresa + "' and DE_FLAC ne '" + "x" + "' and DE_FLAC ne '" + "X" + "' and (DE_ANO eq '" + oModel9.getProperty("/oGlobalTipoFechaAnio01") + "' or DE_ANO eq '2024')",
+                    url: this.varTableURL + "/" + this.varTableT_OC_DET + "?$format=json&$skiptoken=" + this.oGlobalIteracion0 + "&$filter=US_RUC eq '" + varUsuario + "' and EM_RUC eq '" + this.varRucDeLaEmpresa + "' and DE_FLAC ne '" + "x" + "' and DE_FLAC ne '" + "X" + "' and (DE_ANO eq '" + oModel9.getProperty("/oGlobalTipoFechaAnio01") + "' or DE_ANO eq '2025')",
                     success: function (response) {
 
                         var oDataHana = response.value;

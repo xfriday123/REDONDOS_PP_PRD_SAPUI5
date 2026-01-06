@@ -1545,7 +1545,7 @@ sap.ui.define([
                 $.ajax({
                     type: "GET",
                     async: false,
-                    url: this.varTableURL + "/" + this.varTableT_ING + "?$format=json&$skiptoken=" + this.oGlobalIteracion0 + "&$filter=(TIPO eq '" + varTipo11 + "' or TIPO eq '" + varTipo12 + "') and EM_RUC eq '" + usuarioRuc + "' and US_RUC eq '" + usuarioLogin + "' and (AZO eq '" + oModel9.getProperty("/oGlobalTipoFechaAnio01") + "' or AZO eq '2024')",
+                    url: this.varTableURL + "/" + this.varTableT_ING + "?$format=json&$skiptoken=" + this.oGlobalIteracion0 + "&$filter=(TIPO eq '" + varTipo11 + "' or TIPO eq '" + varTipo12 + "') and EM_RUC eq '" + usuarioRuc + "' and US_RUC eq '" + usuarioLogin + "' and (AZO eq '" + oModel9.getProperty("/oGlobalTipoFechaAnio01") + "' or AZO eq '2025')",
                     //sorters: sorters,
                     success: function (response) {
 
@@ -1618,7 +1618,7 @@ sap.ui.define([
                                     $.ajax({
                                         type: "GET",
                                         async: false,
-                                        url: this.varTableURL + "/" + this.varTableT_OC_DET + "?$format=json&$skiptoken=" + this.oGlobalIteracion1 + "&$filter=(DE_TIPO eq '" + varTipo11 + "' or DE_TIPO eq '" + varTipo12 + "') and EM_RUC eq '" + usuarioRuc + "' and US_RUC eq '" + usuarioLogin + "' and (DE_ANO eq '" + oModel9.getProperty("/oGlobalTipoFechaAnio01") + "' or DE_ANO eq '2024')",
+                                        url: this.varTableURL + "/" + this.varTableT_OC_DET + "?$format=json&$skiptoken=" + this.oGlobalIteracion1 + "&$filter=(DE_TIPO eq '" + varTipo11 + "' or DE_TIPO eq '" + varTipo12 + "') and EM_RUC eq '" + usuarioRuc + "' and US_RUC eq '" + usuarioLogin + "' and (DE_ANO eq '" + oModel9.getProperty("/oGlobalTipoFechaAnio01") + "' or DE_ANO eq '2025')",
                                         success: function (response) {
 
                                             var o = new sap.ui.model.json.JSONModel(response.value);
@@ -1762,34 +1762,16 @@ sap.ui.define([
                         this.getView().byId("master1").setBusy(false);
                     }.bind(this)
                 });
-            }
+            }          
+        },
 
-            if (tipo === "D") {
-                filter2 = new sap.ui.model.Filter("DE_TIPO", sap.ui.model.FilterOperator.EQ, "D");
-                filters_t_2_1.push(filter2);
-                filter2 = new sap.ui.model.Filter("DE_TIPO", sap.ui.model.FilterOperator.EQ, "S");
-                filters_t_2_1.push(filter2);
-                filters2.push(new sap.ui.model.Filter(filters_t_2_1, false));
-                /*filter2 = new sap.ui.model.Filter("DE_TIPO", sap.ui.model.FilterOperator.EQ, tipo);
-                filters2.push(filter2);*/
-            } else if (tipo === "H") {
-                filter2 = new sap.ui.model.Filter("DE_TIPO", sap.ui.model.FilterOperator.EQ, tipo);
-                filters2.push(filter2);
-            } else {
-                filter2 = new sap.ui.model.Filter("DE_TIPO", sap.ui.model.FilterOperator.EQ, tipo);
-                filters2.push(filter2);
-            }
 
-            filter2 = new sap.ui.model.Filter("EM_RUC", sap.ui.model.FilterOperator.EQ, usuarioRuc);
-            filters2.push(filter2);
-            filter2 = new sap.ui.model.Filter("US_RUC", sap.ui.model.FilterOperator.EQ, usuarioLogin);
-            filters2.push(filter2);
-            sorter2 = new sap.ui.model.Sorter("DE_POS_DOC_MATERIAL", false);
-            sorters2.push(sorter2);
-
-            /*oModel.read("/" + this.varTableT_ING_DET + "?$format=json", {
-                filters: filters2,
-                sorters: sorters2,*/
+        clicItemFactura1: function (oEvent) {
+            var oThis = this;
+            var oModel = oThis.getView().getModel("myParam");
+            var itemSeleccionado = oEvent.getSource().getSelectedItem();
+            var factura = itemSeleccionado.getBindingContext("myParam").getObject();
+            oModel.setProperty("/listConsultaResumenFacturaCabecera", factura);
             var oThis = this;
             var oModel9 = oThis.getView().getModel("myParam");
             this.oGlobalStop10 = "S";
@@ -1800,7 +1782,7 @@ sap.ui.define([
                 $.ajax({
                     type: "GET",
                     async: false,
-                    url: this.varTableURL + "/" + this.varTableT_ING_DET + "?$format=json&$skiptoken=" + this.oGlobalIteracion0 + "&$filter=(DE_TIPO eq '" + varTipo11 + "' or DE_TIPO eq '" + varTipo12 + "') and EM_RUC eq '" + usuarioRuc + "' and US_RUC eq '" + usuarioLogin + "' and (DE_ANO eq '" + oModel9.getProperty("/oGlobalTipoFechaAnio01") + "' or DE_ANO eq '2024')",
+                    url: this.varTableURL + "/" + this.varTableT_ING_DET + "?$format=json&$skiptoken=" + this.oGlobalIteracion0 + "&$filter=(DE_TIPO eq '" + factura.TIPO + "') and EM_RUC eq '" + factura.EM_RUC + "' and US_RUC eq '" + factura.US_RUC + "' and DE_HOJA_ENTRADA eq '" + factura.HOJA_ENTRADA + "'  and DE_DOC_MATERIAL eq '" + factura.DOC_MATERIAL + "' and (DE_ANO eq '" + oModel9.getProperty("/oGlobalTipoFechaAnio01") + "' or DE_ANO eq '2025')",
                     success: function (response) {
 
                         var oDataHana = response.value;
@@ -1843,65 +1825,63 @@ sap.ui.define([
 
                             for (var i = 0; i < lenghtV; i++) {
                                 llave = {};
-                                llave = oModelJSON.getData()[i];
-                                /*llave.DE_POS_DOC_MATERIAL = oModelJSON.getData()[i].DE_POS_DOC_MATERIAL;
-                                llave.DE_DOC_MATERIAL = oModelJSON.getData()[i].DE_DOC_MATERIAL;
-                                llave.DE_HOJA_ENTRADA = oModelJSON.getData()[i].DE_HOJA_ENTRADA;
-                                llave.DE_NUM_LINEA = oModelJSON.getData()[i].DE_NUM_LINEA;
-                                llave.EM_RUC = oModelJSON.getData()[i].EM_RUC;
-                                llave.US_RUC = oModelJSON.getData()[i].US_RUC;
-                                llave.ALMACEN = oModelJSON.getData()[i].ALMACEN;
-                                llave.CENTROS = oModelJSON.getData()[i].CENTROS;
-                                llave.CENTROV = oModelJSON.getData()[i].CENTROV;
-                                llave.COMPRADORS = oModelJSON.getData()[i].COMPRADORS;
-                                llave.COMPRADORV = oModelJSON.getData()[i].COMPRADORV;
-                                llave.DE_ANO = oModelJSON.getData()[i].DE_ANO;
-                                llave.DE_CANTIDAD = oModelJSON.getData()[i].DE_CANTIDAD;
-                                llave.DE_CANTIDAD_A_FACTURAR = oModelJSON.getData()[i].DE_CANTIDAD_A_FACTURAR;
-                                llave.DE_COD_EMPRESA = oModelJSON.getData()[i].DE_COD_EMPRESA;
-                                llave.DE_CONDICION = oModelJSON.getData()[i].DE_CONDICION;
-                                llave.DE_DESCRIPCION = oModelJSON.getData()[i].DE_DESCRIPCION;
-                                llave.DE_DIRECCION = oModelJSON.getData()[i].DE_DIRECCION;
-                                llave.DE_ESTADO = oModelJSON.getData()[i].DE_ESTADO;
-                                llave.DE_FACTURA = oModelJSON.getData()[i].DE_FACTURA;
-                                llave.DE_FEC_ACEPTACION = oModelJSON.getData()[i].DE_FEC_ACEPTACION;
-                                llave.DE_FEC_CONTABILIZACION = oModelJSON.getData()[i].DE_FEC_CONTABILIZACION;
-                                llave.DE_FEC_REGISTRO = oModelJSON.getData()[i].DE_FEC_REGISTRO;
-                                llave.DE_FLAC = oModelJSON.getData()[i].DE_FLAC;
-                                llave.DE_GUIA_REMISION = oModelJSON.getData()[i].DE_GUIA_REMISION;
-                                llave.DE_IGV = oModelJSON.getData()[i].DE_IGV;
-                                llave.DE_LIBERADO = oModelJSON.getData()[i].DE_LIBERADO;
-                                llave.DE_MONEDA = oModelJSON.getData()[i].DE_MONEDA;
-                                llave.DE_NUMERO_ORDEN = oModelJSON.getData()[i].DE_NUMERO_ORDEN;
-                                llave.DE_NUM_ACEPTACION = oModelJSON.getData()[i].DE_NUM_ACEPTACION;
-                                llave.DE_NUM_ARTICULO = oModelJSON.getData()[i].DE_NUM_ARTICULO;
-                                llave.DE_NUM_DOC_SAP = oModelJSON.getData()[i].DE_NUM_DOC_SAP;
-                                llave.DE_NUM_FACTURA = oModelJSON.getData()[i].DE_NUM_FACTURA;
-                                llave.DE_NUM_MATERIAL = oModelJSON.getData()[i].DE_NUM_MATERIAL;
-                                llave.DE_NUM_SERVICIO = oModelJSON.getData()[i].DE_NUM_SERVICIO;
-                                llave.DE_PEDIDO = oModelJSON.getData()[i].DE_PEDIDO;
-                                llave.DE_POSICION = oModelJSON.getData()[i].DE_POSICION;
-                                llave.DE_PRECIO = oModelJSON.getData()[i].DE_PRECIO;
-                                llave.DE_SITUACION1 = oModelJSON.getData()[i].DE_SITUACION1;
-                                llave.DE_SITUACION2 = oModelJSON.getData()[i].DE_SITUACION2;
-                                llave.DE_SUBTOTAL = oModelJSON.getData()[i].DE_SUBTOTAL;
-                                llave.DE_TIPO = oModelJSON.getData()[i].DE_TIPO;
-                                llave.DE_TOTAL = oModelJSON.getData()[i].DE_TOTAL;
-                                llave.DE_UND_MEDIDA = oModelJSON.getData()[i].DE_UND_MEDIDA;
-                                llave.DOC_PROVEEDOR = oModelJSON.getData()[i].DOC_PROVEEDOR;
-                                llave.LOTE = oModelJSON.getData()[i].LOTE;
-                                llave.NON_CENTRO = oModelJSON.getData()[i].NON_CENTRO;
-                                llave.NOTA_RECEPCION = oModelJSON.getData()[i].NOTA_RECEPCION;
-                                llave.NROSOLICITU = oModelJSON.getData()[i].NROSOLICITU;
-                                llave.NRO_CONTRATO = oModelJSON.getData()[i].NRO_CONTRATO;
-                                llave.RECEPTOR = oModelJSON.getData()[i].RECEPTOR;
-                                llave.REFERENCIA = oModelJSON.getData()[i].REFERENCIA;
-                                llave.SOLICITUDS = oModelJSON.getData()[i].SOLICITUDS;
-                                llave.UBICACION = oModelJSON.getData()[i].UBICACION;
-                                llave.USUARIO = oModelJSON.getData()[i].USUARIO;*/
+                                llave = oModelJSON.getData()[i];                              
                                 vector.push(llave);
                             }
-                            oModelMyParam.setProperty("/listReporteValeDetalle", vector);
+                            oModel9.setProperty("/listReporteValeDetalle", vector);
+                            var varlistReporteValeDetalle = oModel9.getProperty("/listReporteValeDetalle");
+                            // Detalle
+                            var varCont = 0;
+                            var vector = [];
+                            var llave = {};
+                            var varSumaTotal = 0;
+                            var varSumaCantidad = 0;
+                            var varMoneda = "";
+                            var precioTotal = 0;
+                            for (var i = 0; i < varlistReporteValeDetalle.length; i++) {
+                                if (varlistReporteValeDetalle[i].US_RUC === factura.US_RUC &&
+                                    varlistReporteValeDetalle[i].EM_RUC === factura.EM_RUC &&
+                                    varlistReporteValeDetalle[i].DE_HOJA_ENTRADA === factura.HOJA_ENTRADA &&
+                                    varlistReporteValeDetalle[i].DE_DOC_MATERIAL === factura.DOC_MATERIAL) {
+                                    precioTotal = varlistReporteValeDetalle[i].DE_TOTAL;
+                                    precioTotal = precioTotal.replace(/,/g, '');
+                                    varSumaTotal = parseFloat(varSumaTotal, 10) + parseFloat(precioTotal, 10);
+                                    varSumaCantidad = parseFloat(varSumaCantidad, 10) + parseFloat(varlistReporteValeDetalle[i].DE_CANTIDAD, 10);
+                                    varMoneda = varlistReporteValeDetalle[i].DE_MONEDA;
+
+                                    llave = {};
+                                    llave = varlistReporteValeDetalle[i];
+                                    vector.push(llave);
+
+                                    varCont++;
+                                }
+                            }
+                            var sumaTotal = varSumaTotal.toFixed(2);
+                            sumaTotal = this.numberWithCommas(sumaTotal);
+                            this.getView().byId("idlistConsultaResumenFacturaCabeceraCantidad").setText(varSumaCantidad);
+                            this.getView().byId("ohFac").setNumber(sumaTotal);
+                            this.getView().byId("ohFac").setNumberUnit(varMoneda);
+
+                            oModel.setProperty("/listConsultaResumenFacturaDetalle", vector);
+
+                            this.getView().byId("idlistConsultaResumenFacturaCabeceraPosiciones").setText(varCont);
+
+                            var varMensajeFlacEstado = "";
+                            var varStateFlacEstado = "";
+                            if (factura.FLAC === "") {
+                                varMensajeFlacEstado = "Disponible para facturar";
+                                varStateFlacEstado = "Success";
+                            } else {
+                                varMensajeFlacEstado = "Asignado a factura";
+                                varStateFlacEstado = "Information";
+                            }
+                            this.getView().byId("idlistConsultaResumenFacturaCabeceraEstado").setText(varMensajeFlacEstado);
+                            this.getView().byId("idlistConsultaResumenFacturaCabeceraEstado").setState(varStateFlacEstado);
+
+                            this.getView().byId("idDescargarPDF").setVisible(true);
+                            this.getView().byId("ohFac").setVisible(true);
+                            this.getView().byId("idTabBarFac").setVisible(true);
+                            this.getDataOrdenCompra();                            
                         }
                     }.bind(this),
                     error: function (oError) {
@@ -1910,613 +1890,6 @@ sap.ui.define([
                 });
             }
         },
-
-        inicioListaFacturas3: function(e, t, a, r) {
-
-            this.getView().byId("master1").setBusy(true);
-
-            var s = this.getView().getModel("myParam");
-
-            var i = "" + this.varTableURL + "";
-
-            var o = new sap.ui.model.odata.v2.ODataModel(i,true);
-
-            var l = this;
-
-            var n = l.getView().getModel("myParam");
-
-            var p = n.getProperty("/usuarioRuc");
-
-            var d = n.getProperty("/usuarioLogin");
-
-            var b = [];
-
-            var c = [];
-
-            var u = [];
-
-            var g = [];
-
-            var O;
-
-            var h;
-
-            var C;
-
-            var m;
-
-            var T = [];
-
-            var D = [];
-
-            var _ = [];
-
-            var y = [];
-
-            if (e === "D") {
-
-                O = new sap.ui.model.Filter("TIPO",sap.ui.model.FilterOperator.EQ,"D");
-
-                T.push(O);
-
-                O = new sap.ui.model.Filter("TIPO",sap.ui.model.FilterOperator.EQ,"S");
-
-                T.push(O);
-
-                b.push(new sap.ui.model.Filter(T,false))
-
-            } else if (e === "H") {
-
-                O = new sap.ui.model.Filter("TIPO",sap.ui.model.FilterOperator.EQ,e);
-
-                b.push(O)
-
-            } else {
-
-                O = new sap.ui.model.Filter("TIPO",sap.ui.model.FilterOperator.EQ,e);
-
-                b.push(O)
-
-            }
-
-            O = new sap.ui.model.Filter("EM_RUC",sap.ui.model.FilterOperator.EQ,p);
-
-            b.push(O);
-
-            O = new sap.ui.model.Filter("US_RUC",sap.ui.model.FilterOperator.EQ,d);
-
-            b.push(O);
-
-            C = new sap.ui.model.Sorter("FEC_RECEPCION",true);
-
-            u.push(C);
-
-            if (e === "S" || e === "D") {
-
-                C = new sap.ui.model.Sorter("DOC_MATERIAL",true);
-
-                u.push(C)
-
-            } else if (e === "H") {
-
-                C = new sap.ui.model.Sorter("HOJA_ENTRADA",true);
-
-                u.push(C)
-
-            }
-
-            var E = "";
-
-            var v = "";
-
-            if (e === "D") {
-
-                E = "D";
-
-                v = "S"
-
-            } else if (e === "H") {
-
-                E = "H";
-
-                v = "-"
-
-            } else {
-
-                E = e;
-
-                v = "-"
-
-            }
-
-            var l = this;
-
-            var f = l.getView().getModel("myParam");
-
-            this.oGlobalStop10 = "S";
-
-            this.oGlobalIteracion0 = "0";
-
-            f.setProperty("/oListaVectorCabeceraDetalle", []);
-
-            this.oEntrar = "N";
-
-            while (this.oGlobalStop10 === "S") {
-
-                $.ajax({
-
-                    type: "GET",
-
-                    async: false,
-
-                    url: this.varTableURL + "/" + this.varTableT_ING + "?$format=json&$skiptoken=" + this.oGlobalIteracion0 + "&$filter=(TIPO eq '" + E + "' or TIPO eq '" + v + "') and EM_RUC eq '" + p + "' and US_RUC eq '" + d + "' and (AZO eq '" + f.getProperty("/oGlobalTipoFechaAnio01") + "' or AZO eq '2024')",
-
-                    success: function(i) {
-
-                        var o = i.value;
-
-                        console.log(o.length);
-
-                        if (o.length !== 0) {
-
-                            var l = f.getProperty("/oListaVectorCabeceraDetalle");
-
-                            var n = {};
-
-                            if (o.length !== 0) {
-
-                                for (var b = 0; b < o.length; b++) {
-
-                                    n = {};
-
-                                    n = o[b];
-
-                                    l.push(n)
-
-                                }
-
-                                f.setProperty("/oListaVectorCabeceraDetalle", l)
-
-                            } else {
-
-                                f.setProperty("/oListaVectorCabeceraDetalle", [])
-
-                            }
-
-                            console.log(f.getProperty("/oListaVectorCabeceraDetalle"));
-
-                            var c = parseInt(this.oGlobalIteracion0, 10);
-
-                            c = c + 1e3;
-
-                            this.oGlobalIteracion0 = c.toString();
-
-                            console.log(this.oGlobalIteracion0);
-
-                            this.oGlobalStop10 = "S"
-
-                        } else {
-
-                            this.oGlobalStop10 = "N";
-
-                            this.oEntrar = "S"
-
-                        }
-
-                        if (this.oEntrar === "S") {
-
-                            var u = f.getProperty("/oListaVectorCabeceraDetalle");
-
-                            var g = new sap.ui.model.json.JSONModel(u);
-
-                            var h = g.getData().length;
-
-                            var C;
-
-                            var m = [];
-
-                            var T = [];
-
-                            if (e === "D") {
-
-                                C = new sap.ui.model.Filter("DE_TIPO",sap.ui.model.FilterOperator.EQ,"D");
-
-                                T.push(C);
-
-                                C = new sap.ui.model.Filter("DE_TIPO",sap.ui.model.FilterOperator.EQ,"S");
-
-                                T.push(C);
-
-                                m.push(new sap.ui.model.Filter(T,false))
-
-                            } else if (e === "H") {
-
-                                C = new sap.ui.model.Filter("DE_TIPO",sap.ui.model.FilterOperator.EQ,e);
-
-                                m.push(O)
-
-                            } else {
-
-                                C = new sap.ui.model.Filter("DE_TIPO",sap.ui.model.FilterOperator.EQ,e);
-
-                                m.push(O)
-
-                            }
-
-                            C = new sap.ui.model.Filter("EM_RUC",sap.ui.model.FilterOperator.EQ,p);
-
-                            m.push(C);
-
-                            C = new sap.ui.model.Filter("US_RUC",sap.ui.model.FilterOperator.EQ,d);
-
-                            m.push(C);
-
-                            $.ajax({
-
-                                type: "GET",
-
-                                url: this.varTableURL + "/" + this.varTableT_OC_DET + "?$format=json&$filter=(DE_TIPO eq '" + E + "' or DE_TIPO eq '" + v + "') and EM_RUC eq '" + p + "' and US_RUC eq '" + d + "' and (DE_ANO eq '" + f.getProperty("/oGlobalTipoFechaAnio01") + "')",
-
-                                success: function(i) {
-
-                                    var o = new sap.ui.model.json.JSONModel(i.value);
-
-                                    var l = o.getData().length;
-
-                                    var n = [];
-
-                                    var p = {};
-
-                                    for (var d = 0; d < l; d++) {
-
-                                        p = {};
-
-                                        p = o.getData()[d];
-
-                                        n.push(p)
-
-                                    }
-
-                                    var b = [];
-
-                                    var c = {};
-
-                                    for (var d = 0; d < h; d++) {
-
-                                        c = {};
-
-                                        c.AZO = g.getData()[d].AZO;
-
-                                        c.BUKRS = g.getData()[d].BUKRS;
-
-                                        c.CENTROS = g.getData()[d].CENTROS;
-
-                                        c.COMPRADORS = g.getData()[d].COMPRADORS;
-
-                                        c.DIRECCION = g.getData()[d].DIRECCION;
-
-                                        c.DOC_MATERIAL = g.getData()[d].DOC_MATERIAL;
-
-                                        c.DOC_PROVEEDOR = g.getData()[d].DOC_PROVEEDOR;
-
-                                        c.EM_RUC = g.getData()[d].EM_RUC;
-
-                                        c.FEC_RECEPCION = g.getData()[d].FEC_RECEPCION;
-
-                                        c.FEC_RECEPCIONNEW = this.formatoFecha(g.getData()[d].FEC_RECEPCION);
-
-                                        var u = g.getData()[d].FEC_RECEPCION;
-
-                                        c.GUIA_REMISION = g.getData()[d].GUIA_REMISION;
-
-                                        c.HOJA_ENTRADA = g.getData()[d].HOJA_ENTRADA;
-
-                                        c.LIFNR = g.getData()[d].LIFNR;
-
-                                        c.NRO_CONTRATO = g.getData()[d].NRO_CONTRATO;
-
-                                        c.NROSOLICITU = g.getData()[d].NROSOLICITU;
-
-                                        c.NUMERO_ORDEN = g.getData()[d].NUMERO_ORDEN;
-
-                                        c.POSICION_ORDEN = g.getData()[d].POSICION_ORDEN;
-
-                                        c.SOLICITUDS = g.getData()[d].SOLICITUDS;
-
-                                        c.TIPO = g.getData()[d].TIPO;
-
-                                        c.US_RUC = g.getData()[d].US_RUC;
-
-                                        c.USUARIO = g.getData()[d].USUARIO;
-
-                                        c.FLAC = "";
-
-                                        for (var O = 0; O < n.length; O++) {
-
-                                            if (g.getData()[d].HOJA_ENTRADA === n[O].DE_HOJA_ENTRADA && g.getData()[d].EM_RUC === n[O].EM_RUC && g.getData()[d].DOC_MATERIAL === n[O].DE_DOC_MATERIAL && g.getData()[d].US_RUC === n[O].US_RUC && g.getData()[d].NUMERO_ORDEN === n[O].DE_NUMERO_ORDEN && g.getData()[d].POSICION_ORDEN === n[O].DE_POSICION && n[O].DE_FLAC !== "") {
-
-                                                c.FLAC = "X"
-
-                                            }
-
-                                        }
-
-                                        if (t !== "") {
-
-                                            u = u.split("-");
-
-                                            u = u[0] + "" + u[1] + "" + u[2];
-
-                                            u = parseInt(u.toString(), 10);
-
-                                            if (parseInt(a, 10) >= u && parseInt(t, 10) <= u) {
-
-                                                b.push(c)
-
-                                            }
-
-                                        } else {
-
-                                            b.push(c)
-
-                                        }
-
-                                    }
-
-                                    var C = [];
-
-                                    var m = {};
-
-                                    if (r) {
-
-                                        for (var d = 0; d < b.length; d++) {
-
-                                            if (b[d].FLAC !== "X") {
-
-                                                m = {};
-
-                                                m = b[d];
-
-                                                C.push(m)
-
-                                            }
-
-                                        }
-
-                                        s.setProperty("/listReporteVale", C)
-
-                                    } else {
-
-                                        s.setProperty("/listReporteVale", b)
-
-                                    }
-
-                                    if (e === "D" || e === "S") {
-
-                                        this.getView().byId("idTituloOrden").setText("Lista de Bienes (" + b.length + ")");
-
-                                        this.getView().byId("idListMaster1").removeSelections(true);
-
-                                        this.getView().byId("idTableItemFacturasV").setVisible(true);
-
-                                        this.getView().byId("idTableItemFacturasH").setVisible(false)
-
-                                    } else {
-
-                                        this.getView().byId("idTituloOrden").setText("Lista de Servicios/Activos (" + b.length + ")");
-
-                                        this.getView().byId("idListMaster1").removeSelections(true);
-
-                                        this.getView().byId("idTableItemFacturasV").setVisible(false);
-
-                                        this.getView().byId("idTableItemFacturasH").setVisible(true)
-
-                                    }
-
-                                    var T = this.getView().byId("ohFac");
-
-                                    T.setVisible(false);
-
-                                    this.getView().byId("idDescargarPDF").setVisible(false);
-
-                                    var D = this.getView().byId("idTabBarFac");
-
-                                    D.setVisible(false);
-
-                                    this.getView().byId("master1").setBusy(false)
-
-                                }
-
-                                .bind(this),
-
-                                error: function(e) {}
-
-                                .bind(this)
-
-                            })
-
-                        }
-
-                    }
-
-                    .bind(this),
-
-                    error: function(e) {
-
-                        this.oGlobalStop10 = "N";
-
-                        n.setProperty("/listReporteVale", []);
-
-                        this.getView().byId("idTituloOrden").setText("Lista de Vales (0)");
-
-                        this.getView().byId("master1").setBusy(false)
-
-                    }
-
-                    .bind(this)
-
-                })
-
-            }
-
-            if (e === "D") {
-
-                h = new sap.ui.model.Filter("DE_TIPO",sap.ui.model.FilterOperator.EQ,"D");
-
-                _.push(h);
-
-                h = new sap.ui.model.Filter("DE_TIPO",sap.ui.model.FilterOperator.EQ,"S");
-
-                _.push(h);
-
-                c.push(new sap.ui.model.Filter(_,false))
-
-            } else if (e === "H") {
-
-                h = new sap.ui.model.Filter("DE_TIPO",sap.ui.model.FilterOperator.EQ,e);
-
-                c.push(h)
-
-            } else {
-
-                h = new sap.ui.model.Filter("DE_TIPO",sap.ui.model.FilterOperator.EQ,e);
-
-                c.push(h)
-
-            }
-
-            h = new sap.ui.model.Filter("EM_RUC",sap.ui.model.FilterOperator.EQ,p);
-
-            c.push(h);
-
-            h = new sap.ui.model.Filter("US_RUC",sap.ui.model.FilterOperator.EQ,d);
-
-            c.push(h);
-
-            m = new sap.ui.model.Sorter("DE_POS_DOC_MATERIAL",false);
-
-            g.push(m);
-
-            var l = this;
-
-            var f = l.getView().getModel("myParam");
-
-            this.oGlobalStop10 = "S";
-
-            this.oGlobalIteracion0 = "0";
-
-            f.setProperty("/oListaVectorCabeceraDetalle", []);
-
-            this.oEntrar = "N";
-
-            while (this.oGlobalStop10 === "S") {
-
-                $.ajax({
-
-                    type: "GET",
-
-                    async: false,
-
-                    url: this.varTableURL + "/" + this.varTableT_ING_DET + "?$format=json&$skiptoken=" + this.oGlobalIteracion0 + "&$filter=(DE_TIPO eq '" + E + "' or DE_TIPO eq '" + v + "') and EM_RUC eq '" + p + "' and US_RUC eq '" + d + "' and (DE_ANO eq '" + f.getProperty("/oGlobalTipoFechaAnio01") + "' or DE_ANO eq '2024')",
-
-                    success: function(e) {
-
-                        var t = e.value;
-
-                        console.log(t.length);
-
-                        if (t.length !== 0) {
-
-                            var a = f.getProperty("/oListaVectorCabeceraDetalle");
-
-                            var r = {};
-
-                            if (t.length !== 0) {
-
-                                for (var i = 0; i < t.length; i++) {
-
-                                    r = {};
-
-                                    r = t[i];
-
-                                    a.push(r)
-
-                                }
-
-                                f.setProperty("/oListaVectorCabeceraDetalle", a)
-
-                            } else {
-
-                                f.setProperty("/oListaVectorCabeceraDetalle", [])
-
-                            }
-
-                            console.log(f.getProperty("/oListaVectorCabeceraDetalle"));
-
-                            var o = parseInt(this.oGlobalIteracion0, 10);
-
-                            o = o + 1e3;
-
-                            this.oGlobalIteracion0 = o.toString();
-
-                            console.log(this.oGlobalIteracion0);
-
-                            this.oGlobalStop10 = "S"
-
-                        } else {
-
-                            this.oGlobalStop10 = "N";
-
-                            this.oEntrar = "S"
-
-                        }
-
-                        if (this.oEntrar === "S") {
-
-                            var l = f.getProperty("/oListaVectorCabeceraDetalle");
-
-                            console.log(new sap.ui.model.json.JSONModel(l));
-
-                            var n = new sap.ui.model.json.JSONModel(l);
-
-                            var p = n.getData().length;
-
-                            var d = [];
-
-                            var b = {};
-
-                            for (var i = 0; i < p; i++) {
-
-                                b = {};
-
-                                b = n.getData()[i];
-
-                                d.push(b)
-
-                            }
-
-                            s.setProperty("/listReporteValeDetalle", d)
-
-                        }
-
-                    }
-
-                    .bind(this),
-
-                    error: function(e) {
-
-                        this.oGlobalStop10 = "N"
-
-                    }
-
-                    .bind(this)
-
-                })
-
-            }
-
-        },
-
         formatTipoCarga: function (guia, centro, tipo) {
             if (tipo !== "" && tipo !== "M" && tipo !== null && tipo !== undefined) {
                 if (tipo === "D" || tipo === "S") {
